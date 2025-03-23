@@ -11,10 +11,11 @@ fn build() {
         .define("GDCM_BUILD_TESTING", "OFF")
         .define("GDCM_DOCUMENTATION", "OFF")
         .define("GDCM_BUILD_EXAMPLES", "OFF")
+        .define("GDCM_BUILD_SHARED_LIBS", "OFF")
         .define("GDCM_BUILD_DOCBOOK_MANPAGES", "OFF")
         .define("CMAKE_CXX_STANDARD", "14")
         .define("CMAKE_BUILD_TYPE", "Release")
-        .define("CMAKE_CXX_FLAGS", "-O3 -march=native -flto")
+        .define("CMAKE_CXX_FLAGS", "-O3 -march=native -flto -fvisibility=default")
         .define("CMAKE_C_FLAGS", "-O3 -march=native -flto")
         .define("CMAKE_EXE_LINKER_FLAGS", "-flto")
         .build();
@@ -31,10 +32,13 @@ fn build() {
         .include(include_dir)
         .compile("gdcm_wrapper");
 
+    println!("cargo:rustc-link-arg=-Wl,-Bstatic");
+    
     // set libs paths
-    println!("cargo:rustc-link-search={}", dst.join("lib").display());
-    println!("cargo:rustc-link-search={}", dst.display());
-
+    //println!("cargo:rustc-link-search={}", dst.join("lib").display());
+    //println!("cargo:rustc-link-search={}", dst.display());
+    println!("cargo:rustc-link-search=native=/usr/local/lib");
+    
     // set libs
     println!("cargo:rustc-link-lib=static=gdcm_wrapper");
 
@@ -49,6 +53,7 @@ fn build() {
     println!("cargo:rustc-link-lib=static=gdcmjpeg16");
     println!("cargo:rustc-link-lib=static=gdcmjpeg8");
     println!("cargo:rustc-link-lib=static=gdcmopenjp2");
+    
     if env::consts::OS != "windows" {
         println!("cargo:rustc-link-lib=static=gdcmuuid");
     }
