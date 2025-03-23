@@ -17,10 +17,10 @@ cmake = "0.1"
 cc = "1.0"
 
 [dependencies]
-libc = "0.2.153"
-snafu = "0.8.0"
-strum = "0.26.1"
-strum_macros = "0.26.1"
+libc = "0.2.171"
+snafu = "0.8.5"
+strum = "0.27.1"
+strum_macros = "0.27.1"
 
 [lib]
 name = "gdcm_rs"

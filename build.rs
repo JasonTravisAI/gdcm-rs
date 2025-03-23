@@ -13,11 +13,15 @@ fn build() {
         .define("GDCM_BUILD_EXAMPLES", "OFF")
         .define("GDCM_BUILD_DOCBOOK_MANPAGES", "OFF")
         .define("CMAKE_CXX_STANDARD", "14")
+        .define("CMAKE_BUILD_TYPE", "Release")
+        .define("CMAKE_CXX_FLAGS", "-O3 -march=native -flto")
+        .define("CMAKE_C_FLAGS", "-O3 -march=native -flto")
+        .define("CMAKE_EXE_LINKER_FLAGS", "-flto")
         .build();
 
     // set GDCM include path
     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
-    let include_dir = out_path.join("include").join("gdcm-3.1");
+    let include_dir = out_path.join("include").join("gdcm-3.0");
 
     // create library
     cc::Build::new()
