@@ -37,7 +37,7 @@ fn build() {
     // set libs paths
     //println!("cargo:rustc-link-search={}", dst.join("lib").display());
     //println!("cargo:rustc-link-search={}", dst.display());
-    println!("cargo:rustc-link-search=native=/usr/lib/");
+    println!("cargo:rustc-link-search=native=/usr/local/lib/");
     
     // set libs
     println!("cargo:rustc-link-lib=static=gdcm_wrapper");
